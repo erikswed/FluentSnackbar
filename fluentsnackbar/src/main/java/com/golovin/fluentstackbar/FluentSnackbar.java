@@ -77,7 +77,7 @@ public final class FluentSnackbar {
             public void run() {
                 snackbar.show();
             }
-        }, 100); // the delay does the trick
+        }, mInitialDelay); // the delay does the trick
     }
 
     public Builder create(@StringRes int text) {
@@ -102,6 +102,8 @@ public final class FluentSnackbar {
         private boolean mIsImportant;
 
         private int mDuration;
+		
+        private int mInitialDelay;
 
         private CharSequence mActionText;
 
@@ -119,6 +121,7 @@ public final class FluentSnackbar {
             mBackgroundColor = ContextCompat.getColor(mView.getContext(), R.color.default_background);
             mIsImportant = false;
             mDuration = Snackbar.LENGTH_LONG;
+            mInitialDelay = 100; 
             mActionText = mView.getContext().getString(R.string.default_action);
         }
 
@@ -181,6 +184,11 @@ public final class FluentSnackbar {
             return this;
         }
 
+        public Builder initialDelay(int initialDelay) {
+            mInitialDelay = initialDelay;
+            return this;
+        }
+		
         public Builder action(View.OnClickListener listener) {
             mActionListener = listener;
             return this;
@@ -227,6 +235,10 @@ public final class FluentSnackbar {
             return mDuration;
         }
 
+		int getInitialDelay() {
+            return mInitialDelay;
+        }
+		
         @ColorInt
         int getBackgroundColor() {
             return mBackgroundColor;
