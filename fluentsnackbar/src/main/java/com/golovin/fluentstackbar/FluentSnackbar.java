@@ -71,8 +71,13 @@ public final class FluentSnackbar {
                 }
             });
         }
-
-        snackbar.show();
+        // This fix a case if you want the Snackbar to push up the fab/view instead of overlapping
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                snackbar.show();
+            }
+        }, 100); // the delay does the trick
     }
 
     public Builder create(@StringRes int text) {
